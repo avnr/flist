@@ -13,7 +13,11 @@ You have several options for installing `flist`:
 
 - Install using `pip install flist`. Or,
 
-- Clone the project from GitHub - `git clone https://github.com/avnr/flist`.
+- Clone the project from GitHub - `git clone https://github.com/avnr/flist`. Or,
+
+- Download from GitHub the latest release in your preferred format - `https://github.com/avnr/flist/releases`. Or,
+
+- Download from GitHub the tarball - `wget --no-check-certificate https://github.com/avnr/flist/archive/0.5.tar.gz`.
 
 Requires Python3. Import with `from flist import flist` or `from flist import iflist`.
 
