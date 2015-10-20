@@ -1,0 +1,7 @@
+setup.py
+flist/__init__.py
+flist/flist.py
+flist.egg-info/PKG-INFO
+flist.egg-info/SOURCES.txt
+flist.egg-info/dependency_links.txt
+flist.egg-info/top_level.txt

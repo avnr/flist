@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name = 'flist',
@@ -6,8 +6,10 @@ setup(
     version = '0.5',
     description = 'File List Expansion',
     author = 'Avner Herskovits',
+    author_email = 'avnr_ at outlook.com',
     url = 'https://github.com/avnr/flist',
     download_url = 'https://github.com/avnr/flist/tarball/0.5',
+    install_requires=[],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
