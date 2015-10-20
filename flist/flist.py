@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#    iflist version 0.5 - File List Expansion Utility
+#    iflist version 0.6 - File List Expansion Utility
 #    Copyright (c) 2015 Avner Herskovits
 #
 #    For documentation please refer to the accompanying README.md file.
