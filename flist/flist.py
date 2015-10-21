@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#    iflist version 0.6 - File List Expansion Utility
+#    iflist version 0.601 - File List Expansion Utility
 #    Copyright (c) 2015 Avner Herskovits
 #
 #    For documentation please refer to the accompanying README.md file.
@@ -43,11 +43,11 @@ def iflist( files, path = [], recurse = False ):
         for file in files:
             yield from iflist( file, path, recurse )
         raise StopIteration
-    file = expandvars( expanduser( str( files )))
+    file = str( files )
     if '' == file:
         raise StopIteration
     if '@' == file[ 0 ]:
-        _file = file[ 1: ]
+        _file = expandvars( expanduser( file[ 1: ]))
         with open( _file, "r", encoding = "utf-8" ) as f:
             for gross_line in f:
                 line = gross_line. strip( '\n\r' ). split( ' #', 1 )[ 0 ]. strip()
@@ -57,15 +57,16 @@ def iflist( files, path = [], recurse = False ):
                 if '@' == line[ 0 ]:
                     at = '@'
                     line = line[ 1: ]
-                next_file = normpath( join( dirname( realpath( _file )), line ))
+                next_file = normpath( join( dirname( realpath( _file )), expandvars( expanduser( line ))))
                 yield from iflist( at + next_file, path, recurse )
     else:
         found = False
-        for i in iglob( file ):
+        _file = expandvars( expanduser(  file ))
+        for i in iglob( _file ):
             found = True
             yield from _yielder( i, path, recurse )
-        if not found and '/' not in file and '\\' not in file:
-            for i in ( j for p in path for j in iglob( join( p, file ))):
+        if not found and '/' not in _file and '\\' not in _file:
+            for i in ( j for p in path for j in iglob( join( p, _file ))):
                 yield from _yielder( i, path, recurse )
 
 def flist( files, path = [], recurse = False, cb = None ):
@@ -89,7 +90,7 @@ def _usage():
     print( "-n  Don't use a path. Default path is sys.path." )
     print( "-p <path> Specify a path as a directory list sepearted by commas or semicolons." )
 
-if '__main__' == __name__:
+def main():
     from sys import argv, path
     counter = 1
     _search = []
@@ -132,3 +133,5 @@ if '__main__' == __name__:
     for i in _worker( _search, _path, _recurse ):
         print( '"' + i + '"', end = ' ' )
 
+if '__main__' == __name__:
+    main()
