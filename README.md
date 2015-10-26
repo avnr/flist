@@ -114,6 +114,10 @@ MIT License
 Release Notes
 ---
 
+6.02, October 26, 2015:
+
+- Fixed version notation
+
 6.01, October 21, 2015:
 
 - Fixed __init__ so that it works well when installed through Pypi
