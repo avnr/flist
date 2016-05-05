@@ -7,7 +7,7 @@ as a module and as a command line utility.
 Installation
 ---
 
-You have several options for installing `flist`:
+There several options for installing `flist`:
 
 - Copy the file `flist.py` to your project. It is just a single file with no dependencies. Or,
 
@@ -17,7 +17,7 @@ You have several options for installing `flist`:
 
 - Download from GitHub the latest release in your preferred format - `https://github.com/avnr/flist/releases`. Or,
 
-- Download from GitHub the tarball - `wget --no-check-certificate https://github.com/avnr/flist/archive/0.601.tar.gz`.
+- Download from GitHub the tarball - `wget --no-check-certificate https://github.com/avnr/flist/archive/0.7.tar.gz`.
 
 Requires Python3. Import with `from flist import flist` or `from flist import iflist`.
 
@@ -114,11 +114,18 @@ MIT License
 Release Notes
 ---
 
-6.02, October 26, 2015:
+0.7, May 5, 2016:
+
+- flist will now return all files including directories (except when directories will be expanded if
+recursion was requested)
+
+- Styling & typos
+
+0.602, October 26, 2015:
 
 - Fixed version notation
 
-6.01, October 21, 2015:
+0.601, October 21, 2015:
 
 - Fixed __init__ so that it works well when installed through Pypi
 

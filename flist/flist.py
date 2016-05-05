@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#    iflist version 0.602 - File List Expansion Utility
+#    iflist version 0.7 - File List Expansion Utility
 #    Copyright (c) 2015 Avner Herskovits
 #
 #    For documentation please refer to the accompanying README.md file.
@@ -29,33 +29,36 @@
 
 from glob import iglob
 from os. path import abspath, dirname, expanduser, expandvars, isdir, isfile, join, normpath, realpath
-from os import listdir
+from os import altsep as ALTSEP, listdir, sep as SEP
+
+COMMENT = '#'
+REF = '@'
 
 def _yielder( filename, path, recurse ):
-    if isfile( filename ):
-        yield abspath( filename )
-    elif recurse and isdir( filename ):
+    if recurse and isdir( filename ):
         for next_file in listdir( filename ):
             yield from iflist( join( filename, next_file ), path, recurse )
+    else:
+        yield abspath( filename )
 
 def iflist( files, path = [], recurse = False ):
-    if list == type( files ):
+    if type( files ) is list:
         for file in files:
             yield from iflist( file, path, recurse )
         raise StopIteration
     file = str( files )
     if '' == file:
         raise StopIteration
-    if '@' == file[ 0 ]:
+    if REF == file[ 0 ]:
         _file = expandvars( expanduser( file[ 1: ]))
         with open( _file, "r", encoding = "utf-8" ) as f:
             for gross_line in f:
-                line = gross_line. strip( '\n\r' ). split( ' #', 1 )[ 0 ]. strip()
-                if not len( line ) or '#' == line[ 0 ]:
+                line = gross_line. strip( '\n\r' ). split( ' ' + COMMENT, 1 )[ 0 ]. strip()
+                if not len( line ) or COMMENT == line[ 0 ]:
                     continue
                 at = ''
-                if '@' == line[ 0 ]:
-                    at = '@'
+                if REF == line[ 0 ]:
+                    at = REF
                     line = line[ 1: ]
                 next_file = normpath( join( dirname( realpath( _file )), expandvars( expanduser( line ))))
                 yield from iflist( at + next_file, path, recurse )
@@ -65,7 +68,7 @@ def iflist( files, path = [], recurse = False ):
         for i in iglob( _file ):
             found = True
             yield from _yielder( i, path, recurse )
-        if not found and '/' not in _file and '\\' not in _file:
+        if not found and SEP not in _file and ALTSEP is not None and ALTSEP not in _file:
             for i in ( j for p in path for j in iglob( join( p, _file ))):
                 yield from _yielder( i, path, recurse )
 
@@ -74,7 +77,7 @@ def flist( files, path = [], recurse = False, cb = None ):
     def _cb( filename ):
         if filename not in result:
             result. append( filename )
-    if None == cb:
+    if cb is None:
         cb = _cb
     for i in iflist( files, path, recurse ):
         cb( i )
