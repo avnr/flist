@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name = 'flist',
     packages = ['flist'],
-    version = '0.602',
+    version = '0.7',
     description = 'File List Expansion',
     author = 'Avner Herskovits',
     author_email = 'avnr_ at outlook.com',
