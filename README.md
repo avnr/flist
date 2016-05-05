@@ -7,7 +7,7 @@ as a module and as a command line utility.
 Installation
 ---
 
-There several options for installing `flist`:
+There are several options for installing `flist`:
 
 - Copy the file `flist.py` to your project. It is just a single file with no dependencies. Or,
 
